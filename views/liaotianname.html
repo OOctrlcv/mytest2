@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 
+        进入聊天室前输入姓名准备
+        准备把姓名发送到服务器,并且存储到数组中.
+
+
+     -->
+     <style>
+       
+     </style>
+</head>
+<body>
+    <div class="namebox">
+        <form action="/names" method="post">
+            <input type="text" name="usename" class="name" required minlength="3" maxlength="10" placeholder="输入昵称">
+            <button type="submit" class="clickname">确定</button>
+        </form>
+    
+    </div>
+
+    <script>
+
+        var names=[];
+
+        var inpname=document.querySelector(".name");
+        var clickname=document.querySelector('.clickname');
+
+
+        clickname.addEventListener('click',function(){
+            // 禁用按钮
+            let objs=inpname.value
+            names.push({objs});
+            console.log(names);
+            // 解决还没有发送post就被禁用而失效
+            if(objs){
+                window.setTimeout(function(){
+                    clickname.disabled=true;
+                },500);
+            }   
+          
+        
+        })
+    </script>
+</body>
+</html>

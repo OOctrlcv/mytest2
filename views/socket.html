@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .texbox{
+            position: relative;
+           
+            width: 70vw;
+            height: 80vh;
+            border: 1px solid rgb(202, 198, 198);
+            margin: 5% auto;
+        
+            
+        }
+        .textrow{
+            display:flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            /* align-items: flex-end; */
+            width: 100%;
+            height:500px;
+            overflow-x: hidden;
+        }
+        .inptexbox{
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            height: 10%;
+            border-top: 1px solid rgb(238, 238, 238);
+            overflow-x: hidden;
+           
+        }
+        .inp-text{
+            position: absolute;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+            padding-right: 7px;
+            right: -15px;
+            outline: none;
+            resize: none;
+            border: none;
+        }
+        .btn button{
+            position: absolute;
+            left: 85%;
+            top: 80%;
+            height: 50px;
+            width: 50px;
+            border: none;
+            border-radius:0 50px 50px 0;
+        }
+        .btn button:active{
+            opacity: 0.7;
+        }
+        p{  
+ 
+            padding: 20px;
+            margin-top: 20px;
+            margin-right: 0;
+            font-size: 16px;
+            /* margin-right: 10px; */
+            border-radius: 0 30px 30px 0;
+            /* overflow-x: hidden; */
+            max-width: 400px;
+            background-color: aquamarine;
+            /* 换行不留空白 */
+            /* word-break: break-all; */
+            /* 换行留空白，对于字符字母， */
+            word-wrap: break-word;
+           
+        }
+        /* 媒体查询
+            优化手机端的布局显示效果
+        */
+        @media all and (max-width: 500px) {
+            p{
+                font-size: 10px;
+            }
+            .texbox{
+                width: 100%;
+            }
+            .btn button{
+                position: absolute;
+                top: 85%;
+                border-radius:0 0 0 0;
+                margin-right: -50px;
+            }
+        }
+      
+    </style>
+</head>
+
+<body>
+
+  
+   
+    <div class="texbox">
+        <div class="textrow">
+
+        </div>
+        <div class="inptexbox">
+            <textarea class="inp-text" name="" id="" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    <span class="btn"><button>发送</button></span>
+ 
+    <script>
+        // 存放从服务器广播进来用户的姓名值，而在下面
+        // 发送聊天信息的用户名只用第一个数组元素，不管广播多少次，
+        // 数组第一个都是为本用户的姓名。
+        var names=[];
+        var socket = io(); //连接聊天室的io服务器默认为提供io服务器的本机
+
+        // var oText = document.getElementById("text");
+        // var oBtn = document.getElementById("btn");
+        var inptext=document.querySelector('.inp-text');
+        var texbox=document.querySelector('.texbox');
+        var textrow=document.querySelector('.textrow');
+        var btn=document.querySelector('.btn');
+        var p=document.querySelector('p');
+
+        var clickname=document.querySelector('.clickname');
+        var inpname=document.querySelector('.name');
+
+        var myMessage = "";
+    
+        btn.onclick = function () {
+            var mes = inptext.value;
+            
+            //当消息为空时
+            if (!mes) {
+                return;
+            }
+           
+            myMessage = mes;
+            socket.send({'mes':mes,'names':names[0]},null); //发送消息到服务器会触发服务器的socket.on函数
+            inptext.value = ""; //清空文本框
+        };
+      
+        // window.alert("欢迎进入聊天室！")
+        //当服务器广播消息时，触发message事件，消息内容在回调函数中
+        socket.on('message', function (nn,mm) {
+            var ismyp=false
+            var p = document.createElement('p');
+            // var texbf;
+            // texbf=`来自用户：+${nn.names}+---+${new Date().format("yyyy-MM-dd hh:mm:ss")}`
+            // p.setAttribute("data-text",texbf)
+            // 发送的聊天信息
+           if(mm===null){
+            //    有bug，当发送的消息内容带有标签时，并且赋值给p.innerHTML
+            // 会创建标签。解决办法，用innerText只会解释为字符串。
+       
+               p.innerHTML=nn.mes+"<br>"+"来自用户："+nn.names+"---"+new Date().format("yyyy-MM-dd hh:mm:ss");
+                // console.log(names,counts);
+           }
+            // 用户进来时服务器广播用户进入房间。
+            if(nn===null){
+             
+                    p.innerText = mm.na.name+" "+mm.da+"  进入房间";
+                    names.push(mm.na.name)
+                    console.log(names);
+                    // 此时nn为空就不执行下面else if语句，因为null.mes会报错。
+                    // 而此时的进来消息就时style默认样式
+           }
+           
+        //    非常秒解决不同页面发送消息框不同方向.
+        // 应为客户端发送的和服务器广播的都是输入框本身的字符串。
+        // 而对于别人
+            else if(myMessage === nn.mes) {
+                p.style = "background-color:rgb(15, 199, 76); align-self: flex-end;border-radius: 30px 0 0 30px;";
+                console.log(p.innerHTML);
+            }
+            
+            textrow.appendChild(p);
+            if(textrow.scrollHeight!=textrow.scrollTop){
+                // 让聊天消息框的滚动条一直处于最底端
+                textrow.scrollTop=textrow.scrollHeight;
+            }
+            
+        })
+
+        // Date的原型中扩展了format方法，使其可以方便的格式化日期格式输出
+        Date.prototype.format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,                 //月份 
+                "d+": this.getDate(),                    //日 
+                "h+": this.getHours(),                   //小时 
+                "m+": this.getMinutes(),                 //分 
+                "s+": this.getSeconds(),                 //秒 
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                "S": this.getMilliseconds()             //毫秒 
+            };
+            if (/(y+)/.test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            }
+            for (var k in o) {
+                if (new RegExp("(" + k + ")").test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                }
+            }
+            return fmt;
+        }
+    
+       
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="https://cdn.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.20/favicon.ico">
+  <title>Dashboard Template for Bootstrap</title>
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.20/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- 此模板的自定义样式-->
+  <link href="/public/css/index.css" rel="stylesheet">
+
+  <style>
+    .wybfq {
+      position: fixed;
+      width: 310px; 
+      height: 110px;
+      /* background-color: #fff; */
+      /* background-color: red; */
+      z-index: 999999;
+      top: 50%;
+      right:0;
+      /* float: right; */
+    }
+
+    iframe {
+
+      margin-left: -10px;
+      margin-top: 10px;
+    }
+
+    .ifimg {
+      margin-top: 20px;
+      display: none;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <span class="wybfq">
+    <img class="ifimg" src="https://p1.music.126.net/WTCphsIlwcFvwtZLrgyaMg==/109951166586744659.jpg?param=90y90"
+      alt="">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=110
+      src="//music.163.com/outchain/player?type=0&id=6906016795&auto=1&height=90"></iframe>
+  </span>
+
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed btn-xl" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
+          <!-- <span class="sr-only">Toggle navigation</span> -->
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="/liaotianname">聊天室</a></li>
+            <li><a href="/login">注册</a></li>
+          </ul>
+
+          <!-- <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> -->
+
+        </button>
+        <a class="navbar-brand" href="#">项目首页</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Settings</a></li>
+          <li><a href="/boke">博客</a></li>
+          <li><a href="/liaotianname">聊天室</a></li>
+          <li><a href="/login">注册</a></li>
+        </ul>
+        <!-- 搜索框表单控件 -->
+        <form class="navbar-form navbar-right" action="/pinglun" method="post">
+          <input type="text" class="form-control" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+  </nav>
+  <!-- 主题内容 -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+          <li><a href="#">Reports</a></li>
+          <li><a href="#">Analytics</a></li>
+          <li><a href="#">Export</a></li>
+        </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="">Nav item</a></li>
+          <li><a href="">Nav item again</a></li>
+          <li><a href="">One more nav</a></li>
+          <li><a href="">Another nav item</a></li>
+          <li><a href="">More navigation</a></li>
+        </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="">Nav item again</a></li>
+          <li><a href="">One more nav</a></li>
+          <li><a href="">Another nav item</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">成员</h1>
+
+        <div class="row placeholders">
+          {{ each title }}
+          <div class="col-xs-6 col-sm-3 placeholder">
+            <img src="{{ $value.src}}" width="200" height="200" class="img-responsive"
+              alt="Generic placeholder thumbnail">
+            <h4>{{ $value.name }}</h4>
+            <span class="text-muted">Something else</span>
+          </div>
+          {{ /each }}
+        </div>
+
+        <h1>照片集</h1>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="../public/imgs/钟离.png" alt="...">
+              <div class="caption">
+                <h3>Thumbnail label</h3>
+                <p>人物简介...
+                </p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default"
+                    role="button">Button</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="../public/imgs/琴.png" alt="...">
+              <div class="caption">
+                <h3>Thumbnail label</h3>
+                <p>人物简介...
+                </p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default"
+                    role="button">Button</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="../public/imgs/女仆.png" alt="...">
+              <div class="caption">
+                <h3>Thumbnail label</h3>
+                <p>人物简介...
+                </p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default"
+                    role="button">Button</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <h2 class="sub-header">用户记录</h2>
+        <a href="/students/new" class="btn btn-success">添加学生</a>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+              <tbody class="student-tb">
+                {{ each students }}
+                <tr class="student-tr">
+                  <td>{{ $value.id }} </td>
+                  <td>{{ $value.name}} </td>
+                  <td>{{ $value.xb}} </td>
+                  <td>{{ $value.avg }}</td>
+                  <td>
+                  <a href="/students/edit?id={{ $value.id }}">编辑</a>
+                  <a href="/students/delete?id={{ $value.id }}">删除</a>
+                </td>
+              </tr>
+              {{ /each students }}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /*
+    *顶部导航栏小屏幕显示下拉框
+    */
+    var btn = document.querySelector('.btn-xl');
+    var isclick = false;
+    btn.addEventListener("click", function () {
+
+      if (!isclick) {
+        this.style.display = "none";
+        isclick = true;
+
+
+      }
+      else {
+
+        this.style.display = "block";
+        isclick = false
+      }
+    })
+    function btna(e) {
+      var defq = e.tager;
+      console.log(defq);
+    }
+
+    /**
+     * 对用户记录进行序号排序。
+    */
+   
+    let tr=document.querySelectorAll('.student-tr');
+    const trs=[...tr];
+    const st=[];
+  
+ 
+    for(let i=0;i<trs.length;i++){
+      let t;
+      // if(trs[i].children[0]>trs[i+1].children[0]){
+      //     st.push(trs[i]);
+      // }
+    }
+    /*
+     * 移动播放器
+    */
+    var isdisplay = true;
+    var wyu = document.querySelector('.wybfq');
+    var ifr = document.querySelector('iframe');
+    var ifimg = document.querySelector('.ifimg');
+    var ismove=false;
+    ifimg.addEventListener('mousedown', function () {
+      isdisplay = false;
+      setTimeout(function () {
+        console.log(123);
+        wyu.style.left = '950px';
+        ifr.style.display = "block";
+        ifimg.style.display = 'none';
+      }, 1000);
+
+    })
+    // ifimg.addEventListener('mouseleave', function () {
+    //   setTimeout(function () {
+    //     ifimg.style.display = 'block';
+    //     ifr.style.display = "none";
+    //     wyu.style.left = "950px"
+    //   }, 3000)
+    // })
+
+    if (isdisplay) {
+      wyu.addEventListener('mousedown', function (e) {
+      
+        e.preventDefault()
+        var x = e.pageX - wyu.offsetLeft;
+        var y = e.pageY - wyu.offsetTop;
+        console.log(x, y, wyu.offsetLeft);
+        ismove = true;
+        document.addEventListener('mousemove', function (e) {
+          e.preventDefault()
+          if (ismove === true) {
+            wyu.style.top = e.pageY - y + 'px';
+            wyu.style.left = e.pageX - x + 'px';
+
+          }
+
+        })
+      });
+
+      document.addEventListener('mouseup', function () {
+        ismove = false;
+        if (wyu.offsetLeft > 1082) {
+          // setTimeout(function () {
+          ifimg.style.display = 'block';
+          ifr.style.display = "none";
+          wyu.style.left = '1170px'
+          console.log(wyu.style.left);
+          // 不同24尺寸下的值"1807px"
+            console.log(11111111);
+          // }, 3000);
+
+        }
+        if (wyu.offsetLeft <= 950) {
+
+          ifimg.style.display = 'none';
+          ifr.style.display = "block";
+          // wyu.style.left = '953px'
+        }
+
+        console.log(ismove);
+      })
+
+    }
+
+
+  </script>
+</body>
+
+</html>

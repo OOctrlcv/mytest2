@@ -1,0 +1,215 @@
+<!DOCdata-value html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .main-box {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+
+        }
+
+        #d1 {
+            margin-left: calc(20% + 10px);
+            padding: 20px;
+            outline: none;
+            width: 70%;
+            line-height: 30px;
+            background-color: rgb(225, 225, 226);
+
+        }
+
+        .main-left {
+            position: fixed;
+            width: 20%;
+
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+        }
+
+        .main-left .but {
+            border: none;
+
+            padding: 10px 0;
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .main-left .but:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            /* background-color: rgb(255, 255, 0); */
+        }
+
+        /* .main-right{
+            width: 20%;
+            background-color: black;
+        } */
+        h1 {
+            text-align: center;
+        }
+        
+        @media screen and (max-width:1920px) {
+            .main-left {
+                width: 10%;
+            }
+
+            .main-left .but {
+                font-size: 20px;
+                padding: 5px 0;
+               
+            }
+
+            #d1 {
+                margin-left: calc(10% + 20px);
+            }
+        }
+
+        @media screen and (max-width:620px) {
+            .main-left {
+                width: 20%;
+            }
+
+            .main-left .but {
+                font-size: 14px;
+            }
+
+            #d1 {
+
+                margin-left: calc(20% + 20px);
+                /* background-color: rgb(8, 238, 0); */
+            }
+        }
+        .btns{
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100px;
+            height: 200px;
+            /* background-color: aqua; */
+            display: none;
+        }
+        .sp1{
+            border:none;
+            width: 100%;
+            opacity: 0.8;
+        }
+        .sp1:hover{
+            background-color: aliceblue;
+        }
+        .xlk{
+            position: relative;
+        }
+        .xlk:hover .btns{
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Writing articles</h1>
+    <div class="main-box">
+
+        <!-- <h1>快写下你的文章吧</h1> -->
+        <div class="main-btn main-left">
+            <div class="xlk">
+                <button class="but" data-command="backColor" data-value="rgb(255,0,0)" onclick="changeStyle(this.dataset)">背景颜色</button>
+                <div class="btns">
+                    <button class="sp1" data-command="backColor" data-value="rgb(225, 225, 226)" onclick="changeStyle(this.dataset)">默认</button>
+                    <button class="sp1" data-command="backColor" data-value="rgb(255,255,0)" onclick="changeStyle(this.dataset)">黄色</button>
+                    <button class="sp1" data-command="backColor" data-value="rgb(248, 0, 0))" onclick="changeStyle(this.dataset)">红色</button>
+                    <button class="sp1" data-command="backColor" data-value="rgb(8, 238, 0)" onclick="changeStyle(this.dataset)">绿色</button>
+                    <button class="sp1" data-command="backColor" data-value="rgb(11, 146, 236)" onclick="changeStyle(this.dataset)">蓝色</button>
+                </div>
+               
+            </div>
+          
+
+            <button class="but" data-command="Bold">粗体</button>
+            <button class="but" data-value="Arial" data-command="fontName">字体样式</button>
+            <button class="but" data-value="6" data-command="fontSize">字体大小(1-7)</button>
+            <button class="but" data-value="#ff00ff" data-command="foreColor">字体颜色</button>
+            <button class="but" data-value="<h1>" data-command="formatBlock">替换html标签</button>
+            <button class="but" data-value="#dddddd" data-command="hiliteColor">字体背景颜色</button>
+            <button class="but" data-command="insertHorizontalRule">插入水平线</button>
+            <button class="but" data-command="insertOrderedList">创建有序列表</button>
+            <button class="but" data-command="insertUnorderedList">创建无序列表</button>
+
+            <button class="but" data-command="italic">斜体</button>
+            <button class="but" data-command="justifyCenter">内容居中</button>
+            <button class="but" data-command="justifyFull">文本对齐</button>
+            <button class="but" data-command="justifyLeft">左对齐</button>
+            <button class="but" data-command="justifyRight">右对齐</button>
+
+            <button class="but" data-command="removeFormat">清楚样式</button>
+            <button class="but" data-command="strikeThrough">删除线</button>
+            <button class="but" data-command="underline">下划线</button>
+        </div>
+        <div id="d1" contenteditable="true">写入内容</div>
+       
+        <div class="main-right"></div>
+    </div>
+
+
+    <script>
+
+        let changeStyle=function(data){
+            console.log(data.command,data.value);
+            data.value? document.execCommand(data.command, false, data.value):document.execCommand(data.command, false, null)
+
+        }
+        // let d1 = document.querySelector("#d1");
+        // let btn = document.querySelectorAll(".but");
+        // for (let i = 0; i < btn.length; i++) {
+        //     // 放到这里就可以解决各自单选功能。
+        //     // 原理：闭包。
+        //     let isclick = false;
+
+
+        //     btn[i].addEventListener("click", function () {
+
+        //         if (!isclick) {
+        //             let name = this.getAttribute('data-command');
+        //             let data-value = this.getAttribute('data-value')
+        //             console.log(name, data-value)
+        //             document.execCommand(name, true, data-value)
+        //             this.style.backgroundColor = "rgba(33, 122, 255, 0.507)"
+        //             isclick = true;
+
+        //         }
+
+        //         else if (isclick) {
+        //             let name = this.getAttribute('data-command');
+        //             let data-value = null;
+        //             console.log(name, data-value)
+        //             document.execCommand(name, true, data-value)
+        //             this.style.backgroundColor = ""
+        //             isclick = false;
+        //         }
+
+
+
+        //     })
+
+
+        // }
+
+    </script>
+</body>
+
+</html>
